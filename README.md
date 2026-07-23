@@ -1,0 +1,86 @@
+# TikTok侵权检测
+
+面向 TikTok Shop 的商品上架前风险核查 Skill。它帮助按目标国家/市场审查商品链接或表格中的禁售、侵权、召回、产品安全、受限类目、危险品物流和资料要求风险，并输出可交付的 Excel 风险报告。
+
+> 这是预审工具，不构成法律意见、平台批准或商品一定可上架的保证。TikTok Shop 的官方区域政策和当地法律具有最终效力。
+
+## 功能
+
+- 按国家或 TikTok Shop 市场进行核查；未选择市场时先给出编号供选择。
+- 区分禁售、暂不支持、受限和邀请制类目，避免将不同状态混为一谈。
+- 核查商品、包装、品牌、标题、图片、描述、短视频、LIVE、店铺名和头像的知识产权风险。
+- 核查召回、产品安全、危险品/物流与品牌授权、当地标签或监管资料要求。
+- 以低、中、高三个等级分别给出总体、禁售、侵权、召回/安全、准入和物流风险。
+- 对 Excel 输入保留原始行，并追加风险字段、具体原因、所需资料、建议动作、核查日期和官方政策链接。
+
+## 安装
+
+### 方式一：下载 ZIP
+
+1. 在本仓库页面点击 **Code**，选择 **Download ZIP**。
+2. 解压后进入 `tiktok-ip-compliance` 文件夹。
+3. 将整个 `tiktok-ip-compliance` 文件夹复制到：
+
+   ```text
+   %USERPROFILE%\.codex\skills\
+   ```
+
+4. 重启 Codex，或开启一个新的任务会话。
+
+### 方式二：使用 Git
+
+```powershell
+git clone https://github.com/<你的GitHub用户名>/tiktok-ip-compliance.git
+Copy-Item .\tiktok-ip-compliance\tiktok-ip-compliance "$env:USERPROFILE\.codex\skills\tiktok-ip-compliance" -Recurse -Force
+```
+
+完成后重启 Codex 或开启新的任务会话。
+
+## 使用方法
+
+在任务中输入以下任一方式：
+
+```text
+用 TikTok侵权检测检查这些商品链接
+```
+
+```text
+使用 $tiktok-ip-compliance 核查这个 Excel 中的商品，目标市场为美国
+```
+
+推荐工作流程：
+
+1. 提供一个或多个商品链接，或上传 Excel 表格。
+2. 选择目标国家/市场。
+3. 确认需要核查的商品后，接收包含风险等级、原因、政策依据和建议动作的 Excel 报告。
+
+## 规则更新
+
+Skill 中附带的政策参考仅用于定位官方规则。开始 SKU 核查时，如果政策快照已超过三个自然日，必须先从对应 TikTok Shop 区域的官方 Policy Center 或 Academy 刷新规则。
+
+## 输出字段
+
+Excel 报告至少包含：
+
+- 商品链接与目标国家/TikTok Shop 市场
+- 总体风险、禁售风险、知识产权风险、召回/产品安全风险、受限/邀请制/准入风险、危险品/物流风险
+- 具体原因和官方政策依据
+- 所需资料或审批动作、建议的下一步
+- 规则核查日期和官方政策来源 URL
+
+## 目录结构
+
+```text
+tiktok-ip-compliance/
+├── SKILL.md
+├── agents/
+│   └── openai.yaml
+└── references/
+    └── official-policy-baseline.md
+```
+
+## 注意事项
+
+- 没有发现风险不代表合规；缺少品牌、成分、批次、证书或授权资料时，应明确标注为证据不足。
+- 不绕过验证码、登录墙或受限页面；应记录信息缺口并要求补充材料。
+- 第三方卖家不能仅凭品牌官方店铺存在而推定拥有转售或品牌授权。
