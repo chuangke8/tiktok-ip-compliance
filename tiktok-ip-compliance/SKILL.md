@@ -5,22 +5,20 @@ description: Assess product links or spreadsheets for TikTok Shop listing risk, 
 
 # TikTok侵权检测
 
-Perform an evidence-based pre-listing screen; do not represent it as a legal clearance or a platform approval.
+Perform an evidence-based pre-listing screen; do not represent it as a legal clearance or platform approval. Optimize batches by routing each SKU to the few relevant policy topics instead of rereading all rules.
 
-## Workflow
+## Fast batch workflow
 
-1. Identify each supplied product and its target TikTok Shop market. If the user has not selected a market, offer a numbered market list and wait; do not choose on their behalf.
-2. Read `references/official-policy-baseline.md`. Check the snapshot date. If it is more than three calendar days old, refresh the relevant region from the official TikTok Shop Policy Center / Academy before assessing the SKU.
-3. Review product facts and official rules for: prohibited goods, unsupported goods, restricted/invite-only approval, IP/brand authorization, recalls and safety, dangerous goods/logistics, and local product/label/document requirements.
-4. Separate verified facts from unknowns. A missing brand owner, ingredient, certification, batch, or authorization is a risk signal, not proof of a violation. Do not infer product facts from a blocked page, CAPTCHA, or marketplace search snippet.
-5. Assign Low / Medium / High for every risk dimension using the definitions below. Cite the applicable official source URLs and rule-check date.
-6. Deliver an `.xlsx` report. For spreadsheet input, preserve every original row and append the assessment columns. Use the `spreadsheets` skill, including its render-and-inspect requirement, to produce the workbook.
-
-## Risk ratings
-
-- **High:** explicit platform prohibition; recall/unsafe signal; credible counterfeit or IP-infringement signal; or a mandatory authorization/document is absent and prevents sale.
-- **Medium:** incomplete product evidence; potentially restricted category; uncertain brand authorization; regulated/cosmetic/medical-like claim; or a document needs verification.
-- **Low:** no adverse signal found in the current official check. This is not a compliance guarantee.
+1. Normalize the input using `references/input-schema.md`. Preserve original rows. If the target market is missing, offer a numbered market list and wait; do not choose it.
+2. Create groups by **market + product type + risk signals** (brand, medical/cosmetic claim, battery/liquid/aerosol, child use, food/supplement, recall identifier). Reuse one policy result only inside the same market/topic group.
+3. Read `references/rule-routing-matrix.csv` and select only matching official policy routes. Treat the matrix as routing metadata, never as the current policy text.
+4. Check each selected route's `last_verified` value. If older than three calendar days, refresh that market-topic group once from the official TikTok Shop Policy Center / Academy, record the new date and source URL, then apply the refreshed rule to all matching rows.
+5. Run fast triage before deep research:
+   - **Stop as High:** explicit prohibited item, confirmed recall, credible counterfeit/IP infringement, or a mandatory approval known to be absent.
+   - **Continue as Medium:** missing brand/ingredient/batch/certification/authorization, regulated claim, or potential restricted category. Record the missing evidence.
+   - **Continue as Low:** no adverse signal in the applicable current policy check. This is not a clearance.
+6. Deep-check only rows/groups that trigger a route: prohibited/unsupported/restricted/invite-only eligibility, IP and brand authorization, recall/safety, dangerous goods/logistics, and local documents. Parallelize independent group checks when tools permit; do not duplicate work for identical groups.
+7. Generate one `.xlsx` report after all rows are assessed. Use the `spreadsheets` skill and render-inspect every worksheet. Keep original rows and append the required fields below.
 
 ## Required workbook columns
 
@@ -32,8 +30,11 @@ Include at least: Product link; Target country/TikTok Shop market; Overall risk;
 - Screen IP across the product, packaging, brand name, title, images, description, video/LIVE, shop name, and avatar. An official storefront does not prove another seller has resale authorization.
 - Do not downgrade recall risk without product identity, manufacturer, batch/lot, and an appropriate recall-source check.
 - Do not broaden cosmetic claims into whitening, medical treatment, cure, prevention, or drug-like claims unless supported and permitted.
-- Do not bypass a CAPTCHA or login wall. Report the evidence gap and request the needed product details.
+- Do not infer product facts from a blocked page, CAPTCHA, or marketplace search snippet; report the evidence gap instead.
+- Never reuse a policy result across markets or after its three-calendar-day freshness window.
 
-## Policy source
+## References
 
-Use `references/official-policy-baseline.md` only as a routing aid. Official regional pages and current local law control whenever they differ.
+- Read `references/input-schema.md` when the supplied links or spreadsheet lack product facts.
+- Read `references/rule-routing-matrix.csv` to select the smallest relevant set of official policy pages.
+- Read `references/official-policy-baseline.md` only when a selected matrix route requires its official URL or regional routing context.

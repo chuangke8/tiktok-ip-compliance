@@ -1,0 +1,8 @@
+market,topic,trigger_signals,group_action,required_evidence,official_source_url,last_verified
+ALL,market-policy-routing,any product,resolve the selected market official Policy Center or Academy before review,target country and product type,Use the selected market seller-domain Policy Center or Academy,2026-07-21
+ALL,ip-and-brand,brand or branded packaging or branded media,check IP policy and authorization evidence,brand owner or reseller authorization,Use the selected market official IP policy and IP Protection Center,2026-07-21
+ALL,recall-and-safety,manufacturer plus model UPC EAN or batch lot,check official recall and product-safety sources,manufacturer and product identifier,Use the selected market official recall and safety route,2026-07-21
+ALL,dangerous-goods,battery or liquid or aerosol or magnet,check transport eligibility and category requirements,product composition and transport declaration,Use the selected market dangerous-goods and logistics policy,2026-07-21
+US,prohibited-products,any product,check the US prohibited-product policy,product type and listing facts,https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&from=policy&role=1&identity=1,2026-07-21
+US,recall-and-safety,manufacturer plus model UPC EAN or batch lot,check US TikTok Shop recall policy and the appropriate official recall record,manufacturer and product identifier,https://seller-us.tiktok.com/university/essay?knowledge_id=1439743821383425&role=1&course_type=1&from=search&identity=1,2026-07-21
+US,ip-and-brand,brand or branded packaging or branded media,check US IP policy and authorization,brand owner or reseller authorization,https://seller-us.tiktok.com/university/essay?knowledge_id=6837901778306818,2026-07-21
