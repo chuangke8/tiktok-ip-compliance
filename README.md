@@ -12,6 +12,7 @@
 - 核查召回、产品安全、危险品/物流与品牌授权、当地标签或监管资料要求。
 - 以低、中、高三个等级分别给出总体、禁售、侵权、召回/安全、准入和物流风险。
 - 对 Excel 输入保留原始行，并追加风险字段、具体原因、所需资料、建议动作、核查日期和官方政策链接。
+- 支持 `今日TK更新` 命令：读取 TikTok 官方新闻和官方平台规则，输出当天的规则变动、卖家影响、新闻与来源链接。
 
 ## 安装
 
@@ -48,11 +49,21 @@ Copy-Item .\tiktok-ip-compliance\tiktok-ip-compliance "$env:USERPROFILE\.codex\s
 使用 $tiktok-ip-compliance 核查这个 Excel 中的商品，目标市场为美国
 ```
 
+```text
+今日TK更新 美国、印尼
+```
+
 推荐工作流程：
 
 1. 提供一个或多个商品链接，或上传 Excel 表格。
 2. 选择目标国家/市场。
 3. 确认需要核查的商品后，接收包含风险等级、原因、政策依据和建议动作的 Excel 报告。
+
+### 今日TK更新
+
+输入 `今日TK更新` 时，Skill 会按上海时区汇总当天的全球 TikTok 官方新闻与官方平台公告。输入 `今日TK更新 美国、印尼` 可同时核查指定 TikTok Shop 市场的政策变动；输入 `今日TK更新 全部` 则执行较慢的广泛市场扫描，并明确列出实际覆盖范围。
+
+结果会区分“已确认规则变更”“官方平台公告”“媒体报道”和“待验证/覆盖缺口”。只有 TikTok 官方政策来源可作为规则变更依据；首次运行只建立对比基线，不会把旧内容误称为今日更新。
 
 ## 快速批量流程
 
@@ -93,6 +104,7 @@ tiktok-ip-compliance/
 └── references/
     ├── input-schema.md
     ├── rule-routing-matrix.csv
+    ├── today-update-sources.md
     └── official-policy-baseline.md
 ```
 

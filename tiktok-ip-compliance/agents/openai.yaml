@@ -1,4 +1,4 @@
 interface:
   display_name: "TikTok侵权检测"
-  short_description: "核查TikTok商品禁售、侵权、召回、资质要求与上架准入风险"
-  default_prompt: "Use $tiktok-ip-compliance to assess these product links for a selected TikTok Shop market and deliver an Excel risk report."
+  short_description: "核查TikTok商品合规并汇总今日规则更新与平台新闻动态"
+  default_prompt: "Use $tiktok-ip-compliance to compile today's TikTok official rule and news update digest."
